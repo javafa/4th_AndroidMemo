@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.veryworks.android.androidmemo.domain.Memo;
+
 import java.io.File;
+import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -27,13 +30,25 @@ public class ListActivity extends AppCompatActivity {
     // 목록을 초기화
     private void init(){
         Log.d("ListActivity","called init()");
-        File list[] = loadData();
+        ArrayList<Memo> list = loadData();
         ListAdapter adapter = new ListAdapter(this, list);
         listView.setAdapter(adapter);
     }
 
-    private File[] loadData(){
-        return getFilesDir().listFiles();
+    private ArrayList<Memo> loadData(){
+        ArrayList<Memo> result = new ArrayList<>();
+        // 파일목록에서 파일을 하나씩 꺼낸후에
+        // Memo 클래스로 변환한후 result 에 담는다
+        for(File item : getFilesDir().listFiles()){
+            Memo memo = new Memo();
+
+            String text = item... 읽어와야된다.;
+
+
+            result.add(memo);
+        }
+
+        return result;
     }
 
     private static final int WRITE_ACITIVTY = 12345;

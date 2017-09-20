@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.io.File;
+import com.veryworks.android.androidmemo.domain.Memo;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  * Created by pc on 9/20/2017.
@@ -17,21 +19,21 @@ import java.text.SimpleDateFormat;
 public class ListAdapter extends BaseAdapter {
     Context context;
     // 1. 저장소
-    File[] data;
+    ArrayList<Memo> data;
     // 2. 생성자 정의
-    public ListAdapter(Context context, File[] data){
+    public ListAdapter(Context context, ArrayList<Memo> data){
         this.context = context;
         this.data = data;
     }
 
     @Override
     public int getCount() {
-        return data.length;
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return data[position];
+        return data.get(position);
     }
 
     @Override
@@ -56,12 +58,11 @@ public class ListAdapter extends BaseAdapter {
         }
         // 값을 세팅
         // 1. 컬렉션 구조의 저장소로부터 객체 단위로 꺼내두는게 사용하기 편하다.
-        File memo = data[position];
+        Memo memo = data.get(position);
         // 2. 홀더의 위젯에 데이터를 입력한다
-        //holder.setNo(memo.getNo());
-        //holder.setTitle(memo.getTitle());
-        //holder.setDate(memo.getDatetime());
-        holder.setTitle(memo.getName());
+        holder.setNo(memo.getNo());
+        holder.setTitle(memo.getTitle());
+        holder.setDate(memo.getDatetime());
         return view;
     }
 }
