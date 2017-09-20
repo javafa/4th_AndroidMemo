@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class ListAdapter extends BaseAdapter {
     Context context;
     // 1. 저장소
-    ArrayList<Memo> data;
+    public static ArrayList<Memo> data;
     // 2. 생성자 정의
     public ListAdapter(Context context, ArrayList<Memo> data){
         this.context = context;
@@ -88,10 +88,10 @@ class Holder {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DetailActivity.class);
                 intent.putExtra("position", position);
-                intent.putExtra("title",textTitle.getText());
-                intent.putExtra("author", author);
-                intent.putExtra("content", content);
-                intent.putExtra("datetime", textDate.getText());
+//                intent.putExtra("title",textTitle.getText());
+//                intent.putExtra("author", author);
+//                intent.putExtra("content", content);
+//                intent.putExtra("datetime", textDate.getText());
                 view.getContext().startActivity(intent);
             }
         });

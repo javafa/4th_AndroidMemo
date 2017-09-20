@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.veryworks.android.androidmemo.domain.Memo;
+
 public class DetailActivity extends AppCompatActivity {
 
     private TextView textTitle;
@@ -25,15 +27,16 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", -1);
 
-        String title = intent.getStringExtra("title");
-        String author = intent.getStringExtra("author");
-        String content = intent.getStringExtra("content");
-        String datetime = intent.getStringExtra("datetime");
+//        String title = intent.getStringExtra("title");
+//        String author = intent.getStringExtra("author");
+//        String content = intent.getStringExtra("content");
+//        String datetime = intent.getStringExtra("datetime");
+        Memo memo = ListAdapter.data.get(position);
 
-        textTitle.setText(title);
-        textDate.setText(datetime);
-        textAuthor.setText(author);
-        textContent.setText(content);
+        textTitle.setText(memo.getTitle());
+        textDate.setText(memo.getDatetime()+"");
+        textAuthor.setText(memo.getAuthor());
+        textContent.setText(memo.getContent());
     }
 
     private void initView() {
