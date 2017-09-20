@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.io.File;
+
 public class ListActivity extends AppCompatActivity {
 
-    private ListView list;
+    private ListView listView;
     private Button btnPost;
 
     @Override
@@ -18,6 +20,17 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         initView();
         initListener();
+        init();
+    }
+
+    private void init(){
+        File list[] = loadData();
+        ListAdapter adapter = new ListAdapter(this, list);
+        listView.setAdapter(adapter);
+    }
+
+    private File[] loadData(){
+        return getFilesDir().listFiles();
     }
 
     private void initListener() {
@@ -31,7 +44,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        list = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView);
         btnPost = (Button) findViewById(R.id.btnPost);
     }
 }

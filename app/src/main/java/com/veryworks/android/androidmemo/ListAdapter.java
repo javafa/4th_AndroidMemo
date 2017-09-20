@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.veryworks.android.androidmemo.domain.Memo;
-
+import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 /**
  * Created by pc on 9/20/2017.
@@ -19,21 +17,21 @@ import java.util.ArrayList;
 public class ListAdapter extends BaseAdapter {
     Context context;
     // 1. 저장소
-    ArrayList<Memo> data;
+    File[] data;
     // 2. 생성자 정의
-    public ListAdapter(Context contex, ArrayList<Memo> data){
+    public ListAdapter(Context context, File[] data){
         this.context = context;
         this.data = data;
     }
 
     @Override
     public int getCount() {
-        return data.size();
+        return data.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return data.get(position);
+        return data[position];
     }
 
     @Override
@@ -57,34 +55,35 @@ public class ListAdapter extends BaseAdapter {
             holder = (Holder) view.getTag();
         }
         // 값을 세팅
-        // 1. 컬렉션 구조의 저장소에 객체 단위로 꺼내두는게 사용하기 편하다.
-        Memo memo = data.get(position);
+        // 1. 컬렉션 구조의 저장소로부터 객체 단위로 꺼내두는게 사용하기 편하다.
+        File memo = data[position];
         // 2. 홀더의 위젯에 데이터를 입력한다
-        holder.setNo(memo.getNo());
-        holder.setTitle(memo.getTitle());
-        holder.setDate(memo.getDatetime());
+        //holder.setNo(memo.getNo());
+        //holder.setTitle(memo.getTitle());
+        //holder.setDate(memo.getDatetime());
+        holder.setTitle(memo.getName());
         return view;
     }
+}
 
-    class Holder {
-        private TextView textNo;
-        private TextView textTitle;
-        private TextView textDate;
-        public Holder(View view){
-            textNo = view.findViewById(R.id.textNo);
-            textTitle = view.findViewById(R.id.textTitle);
-            textDate = view.findViewById(R.id.textDate);
-        }
-        public void setNo(int no) {
-            textNo.setText(no + "");
-        }
-        public void setTitle(String title) {
-            textTitle.setText(title);
-        }
-        public void setDate(Long datetime) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-            String result = sdf.format(datetime);
-            textDate.setText(result);
-        }
+class Holder {
+    private TextView textNo;
+    private TextView textTitle;
+    private TextView textDate;
+    public Holder(View view){
+        textNo = view.findViewById(R.id.textNo);
+        textTitle = view.findViewById(R.id.textTitle);
+        textDate = view.findViewById(R.id.textDate);
+    }
+    public void setNo(int no) {
+        textNo.setText(no + "");
+    }
+    public void setTitle(String title) {
+        textTitle.setText(title);
+    }
+    public void setDate(Long datetime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        String result = sdf.format(datetime);
+        textDate.setText(result);
     }
 }
