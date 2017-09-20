@@ -1,6 +1,7 @@
 package com.veryworks.android.androidmemo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,18 +64,46 @@ public class ListAdapter extends BaseAdapter {
         holder.setNo(memo.getNo());
         holder.setTitle(memo.getTitle());
         holder.setDate(memo.getDatetime());
+        holder.setPosition(position);
+        holder.setAuthor(memo.getAuthor());
+        holder.setContent(memo.getContent());
         return view;
     }
 }
 
 class Holder {
+    private int position;
+    private String author;
+    private String content;
     private TextView textNo;
     private TextView textTitle;
     private TextView textDate;
+
     public Holder(View view){
         textNo = view.findViewById(R.id.textNo);
         textTitle = view.findViewById(R.id.textTitle);
         textDate = view.findViewById(R.id.textDate);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                intent.putExtra("position", position);
+                intent.putExtra("title",textTitle.getText());
+                intent.putExtra("author", author);
+                intent.putExtra("content", content);
+                intent.putExtra("datetime", textDate.getText());
+                view.getContext().startActivity(intent);
+            }
+        });
+    }
+    public void setAuthor(String author){
+        this.author = author;
+    }
+    public void setContent(String content){
+        this.content = content;
+    }
+    public void setPosition(int position){
+        this.position = position;
     }
     public void setNo(int no) {
         textNo.setText(no + "");

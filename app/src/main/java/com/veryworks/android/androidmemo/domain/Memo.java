@@ -1,7 +1,5 @@
 package com.veryworks.android.androidmemo.domain;
 
-import android.util.Log;
-
 /**
  * Created by pc on 9/19/2017.
  */
@@ -21,9 +19,13 @@ public class Memo {
     }
 
     public Memo(String text){
+        parse(text);
+    }
+
+    public void parse(String text){
         // 1. 문자열을 줄("\n")단위로 분해
         String lines[] = text.split("\n");
-        // 2. 문자열을 행(":^:")단위로 분해
+        // 2. 문자열을 행("위에 DELIMETER")단위로 분해
         for(String line : lines){
             String columns[] = line.split(DELIMETER);
             String key = "";
@@ -35,9 +37,6 @@ public class Memo {
                 key = "";
                 value = columns[0];
             }
-            Log.d("Memo","line========="+line);
-            Log.d("Memo","key========="+key);
-            Log.d("Memo","value========="+value);
             switch(key){
                 case "no":
                     setNo(Integer.parseInt(value));
