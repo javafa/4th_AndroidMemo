@@ -47,10 +47,13 @@ public class WriteActivity extends AppCompatActivity {
         try {
             String filename = System.currentTimeMillis() + ".txt";
             FileUtil.write(this, filename, memo.toString());
+
+            setResult(RESULT_OK); // 나를 호출한 액티비티로 성공/실패 값을 넘겨준다.
             Toast.makeText(this, "등록되었습니다!", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             Toast.makeText(this, "에러:"+e.toString(), Toast.LENGTH_SHORT).show();
         }
+
         finish();
     }
 
