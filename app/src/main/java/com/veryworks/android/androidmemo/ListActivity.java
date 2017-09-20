@@ -7,10 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.veryworks.android.androidmemo.domain.Memo;
+import com.veryworks.android.androidmemo.util.FileUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
@@ -40,14 +43,14 @@ public class ListActivity extends AppCompatActivity {
         // 파일목록에서 파일을 하나씩 꺼낸후에
         // Memo 클래스로 변환한후 result 에 담는다
         for(File item : getFilesDir().listFiles()){
-            Memo memo = new Memo();
-
-            String text = item... 읽어와야된다.;
-
-
-            result.add(memo);
+            try {
+                String text = FileUtil.read(this, item.getName());
+                Memo memo = new Memo(text);
+                result.add(memo);
+            } catch (IOException e) {
+                Toast.makeText(this, "에러:"+e.toString(), Toast.LENGTH_SHORT).show();
+            }
         }
-
         return result;
     }
 
