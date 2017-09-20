@@ -100,7 +100,7 @@ public class Memo {
     }
 
     public void appendContent(String value) {
-        this.content += value;
+        this.content += "\n" + value;
     }
 
     public String toString(){
